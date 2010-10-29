@@ -23,7 +23,7 @@ function go {
             return
         fi
     done
-    echo "unknown alias"
+    echo "unknown shortcut"
 }
 
 # Uncompresses the given tarball, and cds into the uncompressed directory:
