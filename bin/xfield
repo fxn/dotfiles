@@ -1,0 +1,62 @@
+#!/usr/bin/env perl
+
+# -----------------------------------------------------------------------------
+#
+# This utility extracts the nth field out of each line, where n is 1-based,
+# and can be negative (see example below).
+#
+# Lines are read from STDIN, or from one or more files passed as arguments.
+#
+# Options:
+#
+#   -s, --separator
+#       Field separator, a regular expression. Defaults to splitting
+#       by whitespace, ignoring leading and trailing blanks.
+#
+#   -m, --maxfields
+#       Maximum number of fields to split per line. Defaults to unlimited.
+#
+# Examples:
+#
+#   # splits by whitespace, extracts the 2nd field
+#   xfield 2 transactions.log
+#
+#   # splits by comma, optionally surrounded by whitespace, extracts the 3rd field
+#   xfield -s'\s*,\s*' 3 accounts.csv
+#
+#   # extracts values from a properties file stored online
+#   curl http://example.com/config.properties | xfield -s: -m2 2
+#
+#   # extracts the last field of each line, needs -- to indicate -1 is not an option
+#   xfield -s: -- -1 /etc/passwd
+#
+# Author: Xavier Noria (@fxn)
+#
+# -----------------------------------------------------------------------------
+
+use strict;
+
+use Getopt::Long;
+Getopt::Long::Configure ('bundling');
+
+my $s = undef;
+my $m = undef;
+GetOptions(
+    's|separator=s', \$s,
+    'm|maxfields=i', \$m
+);
+$s = qr/$s/ if defined $s;
+
+my $n = shift;   # Remove the index from @ARGV to be <>-friendly.
+--$n if $n > 0;  # Interface is 1-based.
+
+while (my $line = <>) {
+    # Conceptually, a trailing newline does not belong to the last field.
+    chomp $line;
+
+    # Programmed this way because ' ' behaves as default only if written
+    # as a literal in the source code.
+    my @fields = $s ? split $s, $line, $m : split ' ', $line, $m;
+
+    print "$fields[$n]\n";
+}
