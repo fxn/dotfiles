@@ -97,3 +97,7 @@ function rr {
 function rl {
     tail -f log/${1-${RAILS_ENV-development}}.log
 }
+
+# Reboots Passenger.
+alias rb='touch tmp/restart.txt'
+
