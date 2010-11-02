@@ -73,3 +73,16 @@ function rg {
 function rr {
     rails_command “runner” “$@”
 }
+
+# tail -f shortcut for Rails log files.
+#
+# It selects the log file to tail depending on the environment, priority is:
+#
+#   1. argument, eg rl test
+#   2. RAILS_ENV environment variable
+#   3. Defaults to 'development'
+#
+# Thanks to pgas in #bash for the idiom to chain the defaults.
+function rl {
+    tail -f log/${1-${RAILS_ENV-development}}.log
+}
