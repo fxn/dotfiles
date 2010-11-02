@@ -45,6 +45,17 @@ function xcd {
     fi
 }
 
+# If the cwd is a git repo, put the branch in the prompt.
+export PS1='\u@\h:\w`git_branch` ∵ '
+function git_branch {
+    local branch=`git branch 2>/dev/null | cut -f2 -d\* -s | sed "s/^ //"`
+    if [ -n "$branch" ]; then
+        echo " ($branch)"
+    else
+        echo ''
+    fi
+}
+
 #
 # --- Rails commands ----------------------------------------------------------
 #
