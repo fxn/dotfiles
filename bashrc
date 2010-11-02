@@ -70,19 +70,19 @@ function rails_command {
 }
 
 function rs {
-    rails_command “server” “$@”
+    rails_command server “$@”
 }
 
 function rc {
-    rails_command “console” “$@”
+    rails_command console “$@”
 }
 
 function rg {
-    rails_command “generate” “$@”
+    rails_command generate “$@”
 }
 
 function rr {
-    rails_command “runner” “$@”
+    rails_command runner “$@”
 }
 
 # tail -f shortcut for Rails log files.
