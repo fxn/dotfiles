@@ -63,26 +63,26 @@ function rails_command {
     local cmd=$1
     shift
     if [ -e script/rails ]; then
-        exec script/rails $cmd “$@”
+        exec script/rails $cmd "$@"
     else
-        exec script/$cmd “$@”
+        exec script/$cmd "$@"
     fi
 }
 
 function rs {
-    rails_command server “$@”
+    rails_command server "$@"
 }
 
 function rc {
-    rails_command console “$@”
+    rails_command console "$@"
 }
 
 function rg {
-    rails_command generate “$@”
+    rails_command generate "$@"
 }
 
 function rr {
-    rails_command runner “$@”
+    rails_command runner "$@"
 }
 
 # tail -f shortcut for Rails log files.
