@@ -62,10 +62,11 @@ function git_branch {
 function rails_command {
     local cmd=$1
     shift
+
     if [ -e script/rails ]; then
-        exec script/rails $cmd "$@"
+        script/rails $cmd "$@"
     else
-        exec script/$cmd "$@"
+        script/$cmd "$@"
     fi
 }
 
