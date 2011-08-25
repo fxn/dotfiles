@@ -1,3 +1,5 @@
+export CLICOLOR=1
+
 # Given an array GO_SHORTCUTS defined elsewhere with pairs shorcut -> directory:
 #
 #   GO_SHORTCUTS=(
@@ -28,7 +30,7 @@ function go {
 
 # Uncompresses the given tarball, and cds into the uncompressed directory:
 #
-#    fxn@halmos:~/tmp$ xcd ruby-1.9.2-p0.tar.gz 
+#    fxn@halmos:~/tmp$ xcd ruby-1.9.2-p0.tar.gz
 #    fxn@halmos:~/tmp/ruby-1.9.2-p0$
 #
 # Accepts tar.gz, tar.bz2, and zip.
@@ -102,3 +104,8 @@ function rl {
 # Reboots Passenger.
 alias rb='touch tmp/restart.txt'
 
+# Git branch in shell prompt. 
+function parse_git_branch {
+    git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+PS1="\u@\h:\w \$(parse_git_branch)\$ "
