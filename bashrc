@@ -47,17 +47,6 @@ function xcd {
     fi
 }
 
-# If the cwd is a git repo, put the branch in the prompt.
-export PS1='\u@\h:\w`git_branch` ∵ '
-function git_branch {
-    local branch=`git branch 2>/dev/null | cut -f2 -d\* -s | sed "s/^ //"`
-    if [ -n "$branch" ]; then
-        echo " ($branch)"
-    else
-        echo ''
-    fi
-}
-
 #
 # --- Rails commands ----------------------------------------------------------
 #
@@ -104,11 +93,14 @@ function rl {
 # Reboots Passenger.
 alias rb='touch tmp/restart.txt'
 
+# Be sure to run the rake in your bundle.
+alias brake='bundle exec rake'
+
 # Git branch in shell prompt. 
 function parse_git_branch {
     git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
-PS1="\u@\h:\w \$(parse_git_branch)\$ "
+PS1="\u@\h:\w \$(parse_git_branch) \$ "
 
 # Add this project's bin directory to the PATH. Assumes this bashrc is sourced.
 dotfiles=$(cd `dirname "$BASH_SOURCE"` && pwd)
