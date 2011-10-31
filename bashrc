@@ -105,3 +105,7 @@ PS1="\u@\h:\w \$(parse_git_branch)\$ "
 # Add this project's bin directory to the PATH. Assumes this bashrc is sourced.
 dotfiles=$(cd `dirname "$BASH_SOURCE"` && pwd)
 export PATH="$dotfiles/bin":$PATH
+
+if [[ -d $HOME/bin ]]; then
+  export PATH=$HOME/bin:$PATH
+fi
