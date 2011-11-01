@@ -94,7 +94,10 @@ function rl {
 alias rb='touch tmp/restart.txt'
 
 # Be sure to run the rake in your bundle.
-alias brake='bundle exec rake'
+alias bx='bundle exec'
+alias bk='bundle exec rake'
+alias br='bundle exec rails'
+alias bs='bundle exec spec'
 
 # Git branch in shell prompt. 
 function parse_git_branch {
