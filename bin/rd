@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'launchy'
+
+klass, method = ARGV.map(&:dup)
+
+unless klass
+  print <<USAGE
+Usage:
+  rd regexp         # Regexp documentation
+  rd regexp .encode # Regexp.encode class method documentation
+  rd regexp match   # Regexp#match instance method documentation
+USAGE
+  exit
+end
+
+url = "http://ruby-doc.org/core-1.9.3/#{klass.capitalize}.html"
+
+if method
+  type = method.gsub!(/^\./, '') ? 'c' : 'i'
+
+  # The fragment identifier of Object#nil? is method-i-nil-3F.
+  # It is like encoding, but with hyphens rather than percents.
+  method.gsub!(/[^a-z_]/) {|c| "-%02x" % c.unpack('c')}
+
+  # The fragment identifier of String#<< is method-i-3C-3C.
+  # No leading hyphen, hyphens only join apparently.
+  method.gsub!(/^-/, '')
+  url << "#method-#{type}-#{method}"
+end
+
+Launchy.open(url)
