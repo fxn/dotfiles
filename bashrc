@@ -118,11 +118,12 @@ fi
 #
 function cs {
     pushd $dotfiles/cheat-sheets > /dev/null
-    if [ -z "$1" ]
-    then
-        ls
-    else
+    if [ -z "$1" ]; then
+        ls -1
+    elif [ -f $1* ]; then
         ${EDITOR-subl} $1*
+    else
+        ${EDITOR-subl} $1
     fi
     popd > /dev/null
 }
