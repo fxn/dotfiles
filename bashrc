@@ -99,7 +99,7 @@ alias bk='bundle exec rake'
 alias br='bundle exec rails'
 alias bs='bundle exec spec'
 
-# Git branch in shell prompt. 
+# Git branch in shell prompt.
 function parse_git_branch {
     git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
@@ -112,3 +112,17 @@ export PATH="$dotfiles/bin":$PATH
 if [[ -d $HOME/bin ]]; then
   export PATH=$HOME/bin:$PATH
 fi
+
+#
+# --- Cheat Sheets ------------------------------------------------------------
+#
+function cs {
+    pushd $dotfiles/cheat-sheets > /dev/null
+    if [ -z "$1" ]
+    then
+        ls
+    else
+        ${EDITOR-subl} $1*
+    fi
+    popd > /dev/null
+}
