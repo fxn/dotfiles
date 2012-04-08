@@ -119,11 +119,11 @@ fi
 function cs {
     pushd $dotfiles/cheat-sheets > /dev/null
     if [ -z "$1" ]; then
-        ls -1
+        ls -1               # lists available cheat sheets
     elif [ -f $1* ]; then
-        ${EDITOR-subl} $1*
+        ${EDITOR-subl} $1*  # read/edit existing cheat sheet by prefix
     else
-        ${EDITOR-subl} $1
+        ${EDITOR-subl} $1   # cheat sheet creation
     fi
     popd > /dev/null
 }
