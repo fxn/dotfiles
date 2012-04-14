@@ -19,6 +19,9 @@ git remote add rails git://github.com/rails/rails.git
 git fetch rails
 git rebase rails/master
 
+# publish a local branch to the origin remote
+git push origin newfeature
+
 # defaults
 git config --global push.default matching
 git config --global user.name "Xavier Noria"
