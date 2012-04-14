@@ -1,4 +1,10 @@
 export CLICOLOR=1
+export DOTFILES=$(cd `dirname "$BASH_SOURCE"` && pwd) # assumes this file is sourced
+export PATH="$DOTFILES/bin":$PATH
+
+if [[ -d $HOME/bin ]]; then
+  export PATH=$HOME/bin:$PATH
+fi
 
 # Given an array GO_SHORTCUTS defined elsewhere with pairs shorcut -> directory:
 #
@@ -105,25 +111,23 @@ function parse_git_branch {
 }
 PS1="\u@\h:\w \$(parse_git_branch)\$ "
 
-# Add this project's bin directory to the PATH. Assumes this bashrc is sourced.
-dotfiles=$(cd `dirname "$BASH_SOURCE"` && pwd)
-export PATH="$dotfiles/bin":$PATH
-
-if [[ -d $HOME/bin ]]; then
-  export PATH=$HOME/bin:$PATH
-fi
-
 #
 # --- Cheat Sheets ------------------------------------------------------------
 #
+
+export CHEAT_SHEETS=($DOTFILES/cheat-sheets)
 function cs {
-    pushd $dotfiles/cheat-sheets > /dev/null
-    if [ -z "$1" ]; then
-        ls -1               # lists available cheat sheets
-    elif [ -f $1* ]; then
-        ${EDITOR-subl} $1*  # read/edit existing cheat sheet by prefix
-    else
-        ${EDITOR-subl} $1   # cheat sheet creation
-    fi
-    popd > /dev/null
+    local len=${#CHEAT_SHEETS[@]}
+
+    for (( i=0; i<$len; i+=1 ));
+    do
+        pushd "${CHEAT_SHEETS[$i]}"  > /dev/null
+        echo -- $(pwd)
+        if [ -z "$1" ]; then
+            ls -1               # lists available cheat sheets
+        elif [ -f $1* ]; then
+            ${EDITOR-subl} $1*  # read/edit existing cheat sheet by prefix
+        fi
+        popd > /dev/null
+    done
 }
