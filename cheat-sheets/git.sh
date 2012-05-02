@@ -35,6 +35,9 @@ git config --global merge.tool opendiff
 echo .idea > ~/.gitignore
 git config --global core.excludesfile ~/.gitignore
 
+# rewrite history of a feature branch
+git rebase -i original_branch
+
 # abort a cherry-pick
 git reset --merge
 
