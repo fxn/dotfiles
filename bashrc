@@ -131,3 +131,16 @@ function cs {
         popd > /dev/null
     done
 }
+
+function csp {
+    local len=${#CHEAT_SHEETS[@]}
+
+    for (( i=0; i<$len; i+=1 ));
+    do
+        pushd "${CHEAT_SHEETS[$i]}"  > /dev/null
+        git status --porcelain | grep \?\? | xfield 2 | xargs git add
+        git commit -am 'cheat-cheats update'
+        git push
+        popd > /dev/null
+    done
+}
