@@ -14,11 +14,6 @@ git checkout -- .
 # I want to know when a certain file was deleted.
 git log --diff-filter=D -- path/to/file
 
-# working with a fork
-git remote add rails git://github.com/rails/rails.git
-git fetch rails
-git rebase rails/master
-
 # publish a local branch to the origin remote
 git push origin newfeature
 
