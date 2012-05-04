@@ -115,6 +115,11 @@ PS1="\u@\h:\w \$(parse_git_branch)\$ "
 # --- Cheat Sheets ------------------------------------------------------------
 #
 
+# To expand this array with private directories:
+#
+#   source $HOME/prj/dotfiles/bashrc
+#   CHEAT_SHEETS[${#CHEAT_SHEETS[*]}]=$HOME/prj/cheat-sheets
+#
 export CHEAT_SHEETS=($DOTFILES/cheat-sheets)
 function cs {
     local len=${#CHEAT_SHEETS[@]}
@@ -138,9 +143,16 @@ function csp {
     for (( i=0; i<$len; i+=1 ));
     do
         pushd "${CHEAT_SHEETS[$i]}"  > /dev/null
-        git status --porcelain | grep \?\? | xfield 2 | xargs git add
-        git commit -am 'cheat-cheats update'
-        git push
+        gs=`git status --porcelain .`
+        if [ -n "$gs" ]; then
+            rd=`git rev-parse --show-toplevel`
+            pushd "$rd" > /dev/null
+            echo "$gs" | ack '^??' | xfield 2 | xargs git add
+            echo "$gs" | ack '^ M' | xfield 2 | xargs git add
+            git commit -m 'cheat-cheats update'
+            git push
+            popd > /dev/null
+        fi
         popd > /dev/null
     done
 }
