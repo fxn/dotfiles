@@ -25,6 +25,8 @@ git config --global push.default upstream
 git config --global color.ui auto
 git config --global color.diff.whitespace "red reverse"
 git config --global merge.tool opendiff
+git config --global pull.rebase true
+
 
 # gitignore
 echo .idea > ~/.gitignore
