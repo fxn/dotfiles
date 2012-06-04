@@ -46,7 +46,7 @@ Then put this script in your `$PATH`:
     user=${1:-fxn}
     host=${2:-vm}
 
-    exec sshfs -o StrictHostKeyChecking=no -o reconnect -o workaround=rename $user
+    exec sshfs -o StrictHostKeyChecking=no -o reconnect -o workaround=rename $user@$host:. $HOME/vm
 
 The `StrictHostKeyChecking` is needed because we want to connect via SSH to
 different machines that share the same IP. The `reconnect` option is to have
