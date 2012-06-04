@@ -97,7 +97,10 @@ function rl {
 }
 
 function rn {
-    rails new $1 --skip-bundle && cd $1 && bundle install --local
+    local app_name=$1
+    shift
+
+    rails new $app_name --skip-bundle "$@" && cd $app_name && bundle install --local
 }
 
 # Reboots Passenger.
