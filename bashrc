@@ -96,6 +96,10 @@ function rl {
     tail -f log/${1-${RAILS_ENV-development}}.log
 }
 
+function rn {
+    rails new $1 --skip-bundle && cd $1 && bundle install --local
+}
+
 # Reboots Passenger.
 alias rb='touch tmp/restart.txt'
 
