@@ -26,7 +26,7 @@ git config --global color.ui auto
 git config --global color.diff.whitespace "red reverse"
 git config --global merge.tool opendiff
 git config --global pull.rebase true
-
+git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --"
 
 # gitignore
 echo .idea > ~/.gitignore
