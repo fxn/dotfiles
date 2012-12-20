@@ -84,3 +84,9 @@ git log --diff-filter=D -- lib/tasks/metadata.rake
 # Track a remote branch.
 git checkout -t origin/3-1-stable
 git checkout --track -b <local branch> <remote>/<tracked branch>
+
+# List the name of the files that were changed by a certain commit
+git show --name-only --pretty=format: SHA1
+
+# See the contents of a file at a certain SHA1
+git show SHA1:path/to/file/relative/to/the/root
