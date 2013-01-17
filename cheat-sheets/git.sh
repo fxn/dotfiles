@@ -90,3 +90,7 @@ git show --name-only --pretty=format: SHA1
 
 # See the contents of a file at a certain SHA1
 git show SHA1:path/to/file/relative/to/the/root
+
+# Rename branch
+git branch -m old_branch new_branch
+
