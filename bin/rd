@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'rubygems'
 require 'launchy'
 
 klass, method = ARGV.map(&:dup)
@@ -15,7 +14,7 @@ USAGE
   exit
 end
 
-url = "http://ruby-doc.org/core-1.9.3/#{klass.capitalize}.html"
+url = "http://ruby-doc.org/core-#{RUBY_VERSION}/#{klass.capitalize}.html"
 
 if method
   type = method.gsub!(/^\./, '') ? 'c' : 'i'
