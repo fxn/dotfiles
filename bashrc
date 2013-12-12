@@ -117,3 +117,6 @@ function parse_git_branch {
     git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 PS1="\u@\h:\w \$(parse_git_branch)\$ "
+
+# Legendary alias by @porras, if curious about the name, ask over a beer.
+alias git-atpc="git branch --merged | grep -Gv '*' | xargs git branch -d"
