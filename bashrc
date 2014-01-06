@@ -122,3 +122,15 @@ PS1="\u@\h:\w \$(parse_git_branch)\$ "
 
 # Legendary alias by @porras, if curious about the name, ask over a beer.
 alias git-atpc="git branch --merged | grep -Gv '*' | xargs git branch -d"
+
+# Vim.
+VIM_EXEC=vim
+if hash mvim >/dev/null 2>&1; then
+    VIM_EXEC=mvim
+elif hash gvim >/dev/null 2>&1; then
+    VIM_EXEC=gvim
+fi
+
+alias e="$VIM_EXEC +Vex"
+export EDITOR=$VIM_EXEC
+export GIT_EDITOR="$VIM_EXEC -f"
