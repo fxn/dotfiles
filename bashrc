@@ -60,7 +60,9 @@ function rails_command {
     local cmd=$1
     shift
 
-    if [ -e script/rails ]; then
+    if [ -e bin/rails ]; then
+        bin/rails $cmd "$@"
+    elif [ -e script/rails ]; then
         script/rails $cmd "$@"
     else
         script/$cmd "$@"
