@@ -108,7 +108,7 @@ function rn {
 # Reboots Passenger.
 alias rb='touch tmp/restart.txt'
 
-# Be sure to run the rake in your bundle.
+# Run the executable in the bundle.
 alias bx='bundle exec'
 alias bk='bundle exec rake'
 alias br='bundle exec rails'
