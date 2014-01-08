@@ -131,6 +131,7 @@ elif hash gvim >/dev/null 2>&1; then
     VIM_EXEC=gvim
 fi
 
-alias e="$VIM_EXEC +Vex"
+alias vd="$VIM_EXEC +Vex '+wincmd w'"
+alias v=$VIM_EXEC
 export EDITOR=$VIM_EXEC
 export GIT_EDITOR="$VIM_EXEC -f"
