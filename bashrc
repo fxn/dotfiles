@@ -137,6 +137,10 @@ function vd {
     [ -z "$1" ] || popd > /dev/null
 }
 
+function vg {
+    vd `bundle show $1`
+}
+
 alias v=$VIM_EXEC
 export EDITOR=$VIM_EXEC
 export GIT_EDITOR="$VIM_EXEC -f"
