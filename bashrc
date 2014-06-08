@@ -127,4 +127,4 @@ alias amend='git commit --amend --no-edit'
 alias git-atpc="git branch --merged | grep -Gv '*' | xargs git branch -d"
 
 export EDITOR='mg -n'
-export GIT_EDITOR='mg -n'
+export GIT_EDITOR='mg -n -f auto-fill-mode'
