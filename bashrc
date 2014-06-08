@@ -121,29 +121,10 @@ function parse_git_branch {
 PS1="\u@\h:\w \$(parse_git_branch)\$ "
 
 # Amend reusing commit message.
-amend='git commit --amend --no-edit'
+alias amend='git commit --amend --no-edit'
 
 # Legendary alias by @porras, if curious about the name, ask over a beer.
 alias git-atpc="git branch --merged | grep -Gv '*' | xargs git branch -d"
 
-# Vim.
-VIM_EXEC=vim
-if hash mvim >/dev/null 2>&1; then
-    VIM_EXEC=mvim
-elif hash gvim >/dev/null 2>&1; then
-    VIM_EXEC=gvim
-fi
-
-function vd {
-    [ -z "$1" ] || pushd $1 > /dev/null
-    $VIM_EXEC +Vex '+wincmd w'
-    [ -z "$1" ] || popd > /dev/null
-}
-
-function vg {
-    vd `bundle show $1`
-}
-
-alias v=$VIM_EXEC
-export EDITOR=$VIM_EXEC
-export GIT_EDITOR="$VIM_EXEC -f"
+export EDITOR='mg -n'
+export GIT_EDITOR='mg -n'
