@@ -85,6 +85,10 @@ function rr {
     rails_command runner "$@"
 }
 
+function rdb {
+    rails_command db "$@"
+}
+
 # tail -f shortcut for Rails log files.
 #
 # It selects the log file to tail depending on the environment, priority is:
@@ -111,8 +115,7 @@ alias rb='touch tmp/restart.txt'
 # Run the executable in the bundle.
 alias bx='bundle exec'
 alias bk='bundle exec rake'
-alias br='bundle exec rails'
-alias bs='bundle exec spec'
+alias br='bundle exec rspec'
 
 # Git branch in shell prompt.
 function parse_git_branch {
