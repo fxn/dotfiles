@@ -1,0 +1,26 @@
+#!/usr/bin/env perl
+
+# Usage:
+#
+#   git kill head   # index and working tree as in last commit
+#   git kill origin # index and working tree as in remote branch
+#
+use strict;
+use warnings;
+
+my $mode = shift @ARGV;
+
+if ($mode eq 'head') {
+    system 'git reset HEAD --hard'
+} elsif ($mode eq 'origin') {
+    my @branches = `git branch --no-color 2>/dev/null`;
+
+    for my $branch (@branches) {
+        if ($branch =~ /^\* (.*)/) {
+            system "git reset 'origin/$1' --hard";
+            last;
+        }
+    }
+} else {
+    print "unkown mode $mode\n";
+}
