@@ -21,7 +21,7 @@ if method
 
   # The fragment identifier of Object#nil? is method-i-nil-3F.
   # It is like encoding, but with hyphens rather than percents.
-  method.gsub!(/[^a-z_]/) {|c| "-%02x" % c.unpack('c')}
+  method.gsub!(/[^a-z_]/) {|c| "-%02X" % c.unpack('c')}
 
   # The fragment identifier of String#<< is method-i-3C-3C.
   # No leading hyphen, hyphens only join apparently.
