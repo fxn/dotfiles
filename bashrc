@@ -126,9 +126,6 @@ PS1="\u@\h:\w \$(parse_git_branch)\$ "
 # Amend reusing commit message.
 alias amend='git commit --amend --no-edit'
 
-# Legendary alias by @porras, if curious about the name, ask over a beer.
-alias git-atpc="git branch --merged | grep -Gv '*' | xargs git branch -d"
-
 export EDITOR='mg -n'
 export GIT_EDITOR='mg -n -f auto-fill-mode'
 

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Legendary one-liner by @porras. If curious about the name, ask over a beer.
+git branch --merged | grep -Gv '*' | xargs git branch -d
