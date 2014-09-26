@@ -109,6 +109,10 @@ function rn {
     rails new $app_name --skip-bundle "$@" && cd $app_name && bundle install --local
 }
 
+function mcd {
+    mkdir -p $1 && cd $1
+}
+
 # Reboots Passenger.
 alias rb='touch tmp/restart.txt'
 
@@ -130,3 +134,4 @@ export EDITOR='mg -n'
 export GIT_EDITOR='mg -n -f auto-fill-mode'
 
 alias e="$EDITOR"
+
