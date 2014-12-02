@@ -28,101 +28,11 @@
 # This does not pretend to be correct, I am aware of no way to detect backports
 # correctly, but it's going to be useful in practice anyway.
 #
-# Assumes that each release has a tag, and understands the following conventions:
-#
-#   # Final
-#   v0.10.0
-#
-#   # Final (patch level)
-#   v0.9.4.1
-#
-#   # RC
-#   v1.1.0_RC1
-#   v4.2.0.rc1
-#
-#   # Beta
-#   v3.0.0.beta.2
-#   v4.2.0.beta1
-#
-#   # Pre-relase (rare)
-#   v2.0.0_PR
-#   v2.3.9.pre
-#
-# where leading letters are optional.
-class Release
-  attr_accessor :tag, :major, :minor, :tiny, :patch, :rc, :beta
-
-  include Comparable
-
-  def initialize(tag)
-    @tag = tag
-
-    segments = normalize(tag).split(/[._]/)
-    set_prerelease(segments.pop) if segments.last =~ /\D/
-
-    self.major = segments[0].to_i
-    self.minor = segments[1].to_i
-    self.tiny  = segments[2].to_i
-    self.patch = segments[3].to_i
-  end
-
-  def pre?
-    rc || beta
-  end
-
-  def <=>(other)
-    compare_version(other) || compare_pre(other) || 0
-  end
-
-  def compare_version(other)
-    (major <=> other.major).nonzero? ||
-    (minor <=> other.minor).nonzero? ||
-    (tiny  <=> other.tiny).nonzero?  ||
-    (patch <=> other.patch).nonzero?
-  end
-
-  def compare_pre(other)
-    if !pre? && other.pre?
-      1
-    elsif pre? && !other.pre?
-      -1
-    elsif rc && !other.rc
-      1
-    elsif !rc && other.rc
-      -1
-    elsif rc && other.rc
-      rc <=> other.rc
-    else
-      beta <=> other.beta
-    end
-  end
-
-  def normalize(tag)
-    tag.downcase.tap do |normalized|
-      normalized.sub!(/\A[a-z]*/, '')                   # leading v, or whatever letters
-      normalized.sub!(/\.([a-z]+)\.(\d+)\z/, ".\\1\\2") # "*.beta.1" rarities
-    end
-  end
-
-  def set_prerelease(segment)
-    if segment =~ /\Arc(\d*)\z/
-      @rc = $1.to_i
-    elsif segment =~ /\A(?:beta|pre|pr)(\d*)\z/
-      @beta = $1.to_i
-    else
-      $stderr.puts("unknown release variant #{pre}")
-      exit 1
-    end
-  end
-end
+# Assumes that each release has a tag, and each tag represents a release.
 
 def release_for(sha1)
-  [].tap do |contained_in|
-    `git tag --contains #{sha1}`.each_line do |tag|
-      tag.chomp!
-      contained_in << Release.new(tag) unless tag == 'list'
-    end
-  end.min
+  release = `git describe --contains #{sha1} 2>/dev/null`.chomp.sub(/~.*/, '')
+  release.empty? ? nil : release
 end
 
 SECONDS_IN_ONE_MONTH = 3600*24*30
@@ -151,14 +61,14 @@ end
 
 sha1 = `git rev-parse #{sha1}`.chomp
 if release = release_for(sha1)
-  puts "released in #{release.tag}"
+  puts "released in #{release}"
 else
   puts "not yet released"
 end
 
 backports(sha1) do |backport|
   if release = release_for(backport)
-    puts "possible backport in #{release.tag} as #{backport[0..6]}"
+    puts "possible backport in #{release} as #{backport[0..6]}"
   else
     puts "possible backport as #{backport[0..6]} (not yet released)"
   end
