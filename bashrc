@@ -1,6 +1,7 @@
-export CLICOLOR=1
-export DOTFILES=$(cd `dirname "$BASH_SOURCE"` && pwd) # assumes this file is sourced
-export PATH="$DOTFILES/bin":$PATH
+# -*- mode: sh -*-
+
+export CLICOLOR=1 export DOTFILES=$(cd `dirname "$BASH_SOURCE"` && pwd) #
+assumes this file is sourced export PATH="$DOTFILES/bin":$PATH
 
 if [[ -d $HOME/bin ]]; then
   export PATH=$HOME/bin:$PATH
@@ -130,8 +131,6 @@ PS1="\u@\h:\w \$(parse_git_branch)\$ "
 # Amend reusing commit message.
 alias amend='git commit --amend --no-edit'
 
-export EDITOR='mg -n'
-export GIT_EDITOR='mg -n -f auto-fill-mode'
-
+export EDITOR='emacsclient --quiet --alternate-editor ""'
 alias e="$EDITOR"
 

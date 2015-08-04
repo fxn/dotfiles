@@ -1,0 +1,5 @@
+!
+! Need this tweak to have left control working in the Truly Ergonomic.
+!
+keycode 37 = Control_L NoSymbol Control_L
+add control = Control_L
