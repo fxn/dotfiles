@@ -1,7 +1,9 @@
 # -*- mode: sh -*-
 
 export CLICOLOR=1 export DOTFILES=$(cd `dirname "$BASH_SOURCE"` && pwd) #
-assumes this file is sourced export PATH="$DOTFILES/bin":$PATH
+
+# assumes this file is sourced
+export PATH="$DOTFILES/bin":$PATH
 
 if [[ -d $HOME/bin ]]; then
   export PATH=$HOME/bin:$PATH
