@@ -9,9 +9,9 @@ if [[ -d $HOME/bin ]]; then
   export PATH=$HOME/bin:$PATH
 fi
 
-# Given an array GO_SHORTCUTS defined elsewhere with pairs shorcut -> directory:
+# Given an array G_SHORTCUTS defined elsewhere with pairs shorcut -> directory:
 #
-#   GO_SHORTCUTS=(
+#   G_SHORTCUTS=(
 #     rails
 #     $HOME/prj/rails
 #
@@ -21,16 +21,16 @@ fi
 #
 # you can cd into the destination directories given the shortcut. For example
 #
-#   go rails
+#   g rails
 #
 # takes you to $HOME/prj/rails from anywhere.
-function go {
+function g {
     local target=$1
-    local len=${#GO_SHORTCUTS[@]}
+    local len=${#G_SHORTCUTS[@]}
     for (( i=0; i<$len; i+=2 ));
     do
-        if [[ "$1" = "${GO_SHORTCUTS[$i]}" ]]; then
-            cd "${GO_SHORTCUTS[$i+1]}"
+        if [[ "$1" = "${G_SHORTCUTS[$i]}" ]]; then
+            cd "${G_SHORTCUTS[$i+1]}"
             return
         fi
     done
@@ -136,4 +136,3 @@ alias amend='git commit --amend --no-edit'
 export EDITOR='mg -n'
 export GIT_EDITOR="$EDITOR"
 alias e="$EDITOR"
-
