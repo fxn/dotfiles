@@ -133,6 +133,11 @@ PS1="\u@\h:\w \$(parse_git_branch)\$ "
 # Amend reusing commit message.
 alias amend='git commit --amend --no-edit'
 
-export EDITOR='mg -n'
-export GIT_EDITOR="$EDITOR"
+if which -s mvim; then
+    export EDITOR=mvim
+else
+    export EDITOR=vim
+fi
 alias e="$EDITOR"
+
+export GIT_EDITOR='vim -u NONE'
