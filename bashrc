@@ -140,4 +140,4 @@ else
 fi
 alias e="$EDITOR"
 
-export GIT_EDITOR='vim -u NONE'
+export GIT_EDITOR=vim
