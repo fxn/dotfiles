@@ -1,8 +1,8 @@
-# -*- mode: sh -*-
+export CLICOLOR=1
 
-export CLICOLOR=1 export DOTFILES=$(cd `dirname "$BASH_SOURCE"` && pwd) #
+# Assumes this file is sourced.
+export DOTFILES=$(cd `dirname "$BASH_SOURCE"` && pwd)
 
-# assumes this file is sourced
 export PATH="$DOTFILES/bin":$PATH
 
 if [[ -d $HOME/bin ]]; then
@@ -133,11 +133,10 @@ PS1="\u@\h:\w \$(parse_git_branch)\$ "
 # Amend reusing commit message.
 alias amend='git commit --amend --no-edit'
 
-if which -s mvim; then
-    export EDITOR=mvim
-else
-    export EDITOR=vim
-fi
-alias e="$EDITOR"
+export EDITOR=vim
+export GIT_EDITOR="vim --clean -c 'set tw=80 | set fo+=a | startinsert'"
 
-export GIT_EDITOR=vim
+function rebase {
+    local remote=${1-origin}
+    git pull --rebase $remote master
+}
