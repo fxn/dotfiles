@@ -134,7 +134,7 @@ PS1="\u@\h:\w \$(parse_git_branch)\$ "
 alias amend='git commit --amend --no-edit'
 
 export EDITOR=vim
-export GIT_EDITOR="vim --clean -c 'set tw=72 | set fo+=a | startinsert'"
+export GIT_EDITOR="vim --clean -c 'set fo+=a | syntax off'"
 
 function rebase {
     local remote=${1-origin}
