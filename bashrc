@@ -9,34 +9,6 @@ if [[ -d $HOME/bin ]]; then
   export PATH=$HOME/bin:$PATH
 fi
 
-# Given an array G_SHORTCUTS defined elsewhere with pairs shorcut -> directory:
-#
-#   G_SHORTCUTS=(
-#     rails
-#     $HOME/prj/rails
-#
-#     tmp
-#     $HOME/tmp
-#  )
-#
-# you can cd into the destination directories given the shortcut. For example
-#
-#   g rails
-#
-# takes you to $HOME/prj/rails from anywhere.
-function g {
-    local target=$1
-    local len=${#G_SHORTCUTS[@]}
-    for (( i=0; i<$len; i+=2 ));
-    do
-        if [[ "$1" = "${G_SHORTCUTS[$i]}" ]]; then
-            cd "${G_SHORTCUTS[$i+1]}"
-            return
-        fi
-    done
-    echo "unknown shortcut"
-}
-
 # Uncompresses the given tarball, and cds into the uncompressed directory:
 #
 #    fxn@halmos:~/tmp$ xcd ruby-1.9.2-p0.tar.gz
@@ -140,3 +112,12 @@ function rebase {
     local remote=${1-origin}
     git pull --rebase $remote master
 }
+
+# jump is a directory switcher implemented as a Ruby gem:
+#
+#   gem install jump -N
+#
+if type jump-bin >/dev/null; then
+    source `jump-bin --bash-integration`/shell_driver
+    alias j=jump
+fi
