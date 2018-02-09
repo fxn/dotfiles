@@ -1,6 +1,0 @@
-#!/bin/bash
-
-deb=$HOME/Downloads/atom-editor.deb
-curl -L -s https://atom.io/download/deb > $deb
-sudo dpkg -i $deb
-
