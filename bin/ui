@@ -1,10 +1,13 @@
 #!/usr/bin/env ruby
 
 # This utility is helpful when you want to paste snippets of code unindented.
-# For example, for blog post, Slack channel, personal wiki, etc.
+# Very handy to copy code snippets from the editor to a Slack channel, slides,
+# personal notes, etc.
 
-require 'active_support/core_ext/string/strip'
+text = `pbpaste`
+indent = text.scan(/^[ \t]*(?=\S)/).min
+text.gsub!(/^#{indent}/, '')
 
 open('| pbcopy', 'w') do |io|
-  io.write(`pbpaste`.strip_heredoc)
+  io.write(text)
 end
