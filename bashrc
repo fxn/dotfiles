@@ -97,10 +97,13 @@ alias bk='bundle exec rake'
 alias br='bundle exec rspec'
 
 # Git branch in shell prompt.
-function parse_git_branch {
-    git branch --no-color 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+function current_git_branch {
+    if git rev-parse --git-dir >/dev/null 2>&1;
+    then
+      echo -n "($(git symbolic-ref --short HEAD))"
+    fi
 }
-PS1="\u@\h:\w \$(parse_git_branch)\$ "
+PS1="\u@\h:\w \$(current_git_branch)\$ "
 
 # Amend reusing commit message.
 alias amend='git commit --amend --no-edit'
