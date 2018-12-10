@@ -124,3 +124,8 @@ if type jump-bin >/dev/null; then
     source `jump-bin --bash-integration`/shell_driver
     alias j=jump
 fi
+
+function mn {
+    mix new "$1"
+    cd "$1"
+}
