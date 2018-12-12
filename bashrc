@@ -126,6 +126,5 @@ if type jump-bin >/dev/null; then
 fi
 
 function mn {
-    mix new "$1"
-    cd "$1"
+    mix new "$1" && cd "$1" && code .
 }
